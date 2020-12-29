@@ -1,0 +1,18 @@
+{
+  "name": "safwan_wadud_db",
+  "version": "1.0.0",
+  "description": "1) Project: Movie Database",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.17",
+    "pug": "^3.0.0"
+  }
+}
