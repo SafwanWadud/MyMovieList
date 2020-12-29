@@ -1,0 +1,45 @@
+html
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='../style.css')
+    body
+        p#logo.siteTitle My Movie List
+        include ../partials/navbar
+        div#page
+            div#mainInfo
+                img#pic(src=user.pic)
+                div#info
+                    div.top
+                        div#name #{user.username}
+                        - if (following)
+                            button#follow.follow(type='button') - unfollow
+                        - else
+                            button#follow.follow.follow2(type='button') + follow
+                    div#bio #{user.bio}
+            div#bottomInfo
+                div#Following
+                    div#peopleFollowing
+                        div.followHeading People they follow
+                        div#peopleList
+                            each person in user.peopleFollowing
+                                a.followTag(href='/people/'+person._id) #{person.name}
+                    div#usersFollowing
+                        div.followHeading Users they follow
+                        div#userList
+                            each otherUser in user.usersFollowing
+                                a.followTag(href='/users/'+otherUser._id) #{otherUser.username}                        
+                div#Reviews.userReviews
+                    div#reviewHeading Movie Reviews
+                        each review in user.reviews
+                            div.userReview 
+                                img.revPoster(src=review.movieID.poster)
+                                div.revInfo
+                                    a.revMovie(href="/movies/"+review.movieID._id) #{review.movieID.title}
+                                    div.revRating #{review.rating}/10
+                                    div.revBrief #{review.briefSummary}
+                                    div.revContent.revUP #{review.content}
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src='../user.js')

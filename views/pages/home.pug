@@ -1,0 +1,28 @@
+html
+    head(lang="en")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='style.css')
+    body
+        p.siteTitle#logo My Movie List
+        include ../partials/navbar
+        div#page
+            div#explore Explore
+            div#homeContent
+                div#homeResults
+                    each movie in movies
+                        div.homeItem
+                            a.hTitle(href="/movies/"+movie._id)
+                                img.srPoster.hPoster(src=movie.poster)
+                                div.movieTitle #{movie.title}
+                div#newsDiv
+                    - if (notifications.length)
+                        button#clearNotifs clear
+                    div#newsHeading News
+                    div#notifs
+                        each notif in notifications
+                            div.notifDiv #{notif}
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src="home.js")

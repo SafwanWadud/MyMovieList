@@ -1,0 +1,55 @@
+html
+    head(lang="en")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='../style.css')
+    body
+        p#logo.siteTitle My Movie List
+        include ../partials/navbar
+        div#page
+            div#mainInfo
+                img#pic(src=person.pic)
+                div#info
+                    div.top
+                        div#name #{person.name}
+                        - if (following)
+                            button#follow.follow(type='button') - unfollow
+                        - else
+                            button#follow.follow.follow2(type='button') + follow
+                    div#details
+                        - if(person.acted.length)
+                            div.role Actor
+                        - if(person.written.length)
+                            div.role Writer
+                        - if(person.directed.length)
+                            div.role Director
+                    div#bio #{person.bio}
+            div#bottomInfo
+                div#collabs
+                    div#collabHeading.sideHeading Frequent collaborators
+                    div#collabNames
+                        each collab in person.freqCollabs
+                            a.personTag.collabName(href='/people/'+collab._id) #{collab.name}
+                div#moviesWorked
+                    div
+                        - if(person.acted.length)
+                            div.roleHeading Movies Acted In
+                            div#mActed.movieRoles
+                                each movie in person.acted
+                                    a.movieTag(href='/movies/'+movie._id) #{movie.title}
+                    div
+                        - if(person.written.length)                    
+                            div.roleHeading Movies Written
+                            div#mWritten.movieRoles
+                                each movie in person.written
+                                    a.movieTag(href='/movies/'+movie._id) #{movie.title}
+                    div
+                        - if(person.directed.length)                    
+                            div.roleHeading Movies Directed
+                            div#mDirected.movieRoles
+                                each movie in person.directed
+                                    a.movieTag(href='/movies/'+movie._id) #{movie.title}  
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src='../person.js')

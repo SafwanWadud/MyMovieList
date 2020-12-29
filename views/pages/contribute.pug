@@ -1,0 +1,59 @@
+html
+    head(lang="en")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='../style.css')
+    body
+        p#logo.siteTitle My Movie List
+        include ../partials/navbar
+        div#page
+            h1.conTitle Add a movie
+            form#movieForm(action="/movies" method="post")
+                div#reqInfo
+                    div.addMSection title: 
+                        input#addMTitle.addMovie(name="title" maxLength="40" placeHolder="(required)" required)
+                    div.addMSection release year: 
+                        input#addMYear.addMovie(name="releaseYear" maxLength="4" pattern="\\d*" placeHolder="(required)" required)
+                    div.addMSection runtime (mins): 
+                        input#addMTime.addMovie(name="runtime" maxLength="3" pattern="\\d*" placeHolder="(required)" required)
+                    div.addMSection director(s) (separated by commas): 
+                        input#addMDirectors.addMovie(name="directors" maxLength="40" placeHolder="(required)" required) 
+                    div.addMSection writer(s) (separated by commas): 
+                        input#addMWriters.addMovie(name="writers" maxLength="40" placeHolder="(required)" required) 
+                    div.addMSection actor(s) (separated by commas):  
+                        input#addMActors.addMovie(name="actors" maxLength="40" placeHolder="(required)" required)  
+                    div.addMSection plot: 
+                        br
+                        textarea#addMPlot.addMovie(name="plot" maxLength="1000" placeHolder="(required)" required)
+                    div.addMSection#genreSect genre (please select at least 2):
+                        br 
+                        br
+                        each g in genre
+                            input.addMGenre(type="checkbox" name="genre", value=g id="check"+g required) 
+                            label.genreLabel(for=id="check"+g) #{g}
+                    div.addMSection rating: 
+                        input#addMRating.addMovie(name="rated" maxLength="2" placeHolder="(optional)")
+                    div.addMSection language: 
+                        input#addMLanguage.addMovie(name="language" maxLength="20" placeHolder="(optional)")
+                    div.addMSection country:
+                        input#addMCountry.addMovie(name="country" maxLength="20" placeHolder="(optional)") 
+                    div.addMSection awards:
+                        input#addMAwards.addMovie(name="awards" maxLength="40" placeHolder="(optional)") 
+                br
+                input#postB(type='submit' value='create movie')
+            br
+            h1.conTitle Add a person
+            form#personForm(action="/people" method="post")
+                div#pFormInfo
+                    | name: 
+                    input.addPerson#addPName(name="name" maxLength="40" placeHolder="(required)" required)
+                    br
+                    br
+                    div bio:
+                    textarea.addPerson#addPBio(name="bio" maxLength="1000" placeHolder="(required)" required)
+                input#postB(type='submit' value='create person')
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src="contribute.js")
+

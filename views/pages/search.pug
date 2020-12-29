@@ -1,0 +1,49 @@
+html
+    head(lang="en")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='style.css')
+        script(src='https://kit.fontawesome.com/1eb2ce7a7c.js' crossorigin='anonymous')
+    body
+        p.siteTitle#logo My Movie List
+        include ../partials/navbar
+        div#page
+            div#searchBar
+                form#dropDown
+                    select#searchType(name='searchType' onclick='updatePlaceholder()')
+                        option(value='movies') MOVIES
+                        option(value='people') PEOPLE
+                        option(value='users') USERS
+                div#searchDiv
+                    input#searchInput.input(type='text' name='search' placeholder='Search for movies...' required='')
+                    button#searchButton(onclick='search()')
+                        i.fas.fa-search
+            div#searchGenre
+                each g in genre
+                    - let bID = g + "B"
+                    button.genreB(id=bID, onclick='selectGenre(this.id)') #{g}
+            - if (searchResults.length != 0)
+                button#prev(onclick='prevPage()') prev
+                button#next(onclick='nextPage()') next
+                div#searchResults
+                    each item in searchResults
+                        - if(type.movies)
+                            a.searchItem(href="/movies/"+item._id)
+                                img.srPoster(src=item.poster)
+                                div.movieTitle #{item.title}
+                        - if(type.people)
+                            a.searchItem(href="/people/"+item._id)
+                                img.srPoster(src=item.pic)
+                                div.movieTitle #{item.name}
+                        - if(type.users)
+                            a.searchItem(href="/users/"+item._id)
+                                img.srPoster(src=item.pic)
+                                div.movieTitle #{item.username}
+                button#prev(onclick='prevPage()') prev 
+                button#next(onclick='nextPage()') next
+            - else if (!search) 
+                div no results found
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src='search.js')

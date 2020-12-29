@@ -1,0 +1,105 @@
+html
+    head(lang="en")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='../style.css')
+    body
+        p#logo.siteTitle My Movie List
+        include ../partials/navbar
+        div#page
+            div#mainInfo
+                img#mImage(src=movie.poster)
+                div#info
+                    div.top.mTop
+                        div#mTitle #{movie.title}
+                        div#avgRating #{movie.averageRating}/10
+                    div#details
+                        div#mRated #{movie.rated}
+                        div#mRuntime #{movie.runtime}
+                        div#mReleased #{movie.released}
+                    div#mGenres
+                        - let first = true;
+                        each genre in movie.genre
+                            a.genreTag(href="/movies?genre="+genre)
+                                if first
+                                    |#{genre}
+                                else
+                                    |, #{genre}
+                            - first = false;
+                    div#mPlot #{movie.plot}
+            div#bottomInfo
+                div#moreDetails
+                    div.subtitles
+                        div#subtitle Language: 
+                        div#mLanguage #{movie.language}
+                    div.subtitles
+                        div#subtitle Country: 
+                        div#mCountry #{movie.country}
+                    div
+                        div.sideHeading Awards
+                        div#mAwards #{movie.awards}
+                    div#Similar
+                        div#smHeading Similar Movies
+                        each sMovie in movie.similar
+                            a.similarMovie(href="/movies/"+sMovie._id)
+                                div #{sMovie.title}
+                                img.smPoster(src=sMovie.poster)
+                div#rightContent
+                    div
+                        div
+                            div.peopleHeading Actors
+                            - if (contributor)
+                                div#movieForm.addMSection Add actor(s) (separated by commas): 
+                                    input#addMActors.addMovie(name="actors" maxLength="100" required) 
+                                    button#addActor(value='add' onclick="addActor()") add   
+                        div#mActors.people
+                            each person in movie.actors 
+                                a.personTag(href="/people/"+person._id) #{person.name}
+                        div
+                            div.peopleHeading Directors
+                            - if (contributor)
+                                div#movieForm.addMSection Add director(s) (separated by commas):  
+                                    input#addMDirectors.addMovie(name="directors" maxLength="100" required) 
+                                    button#addDirector(value='add' onclick="addDirector()") add
+                        div#mDirectors.people
+                            each person in movie.directors 
+                                a.personTag(href="/people/"+person._id) #{person.name}
+                        div
+                            div.peopleHeading Writers
+                            - if (contributor)
+                                div#movieForm.addMSection Add writer(s) (separated by commas):
+                                    input#addMWriters.addMovie(name="writers" maxLength="100" required) 
+                                    button#addWriter(value='add' onclick="addWriter()") add
+                        div#mWriters.people
+                            each person in movie.writers
+                                a.personTag(href="/people/"+person._id) #{person.name}
+                    div#Reviews
+                        div#reviewHeading Reviews
+                        h3 Create a review
+                        form#reviewForm(action="/reviews" method="post")
+                            input(type="hidden" name="mid" value=movie._id)
+                            input#reviewBrief(name="briefSummary" maxLength="100" placeHolder="brief summary... (optional)")
+                            textarea#reviewInput(name="content" maxLength="2000" placeHolder="content... (optional)")
+                            select#reviewRating(name="rating" required)
+                                option(value=10) 10
+                                option(value=9) 9
+                                option(value=8) 8
+                                option(value=7) 7
+                                option(value=6) 6
+                                option(value=5) 5
+                                option(value=4) 4
+                                option(value=3) 3
+                                option(value=2) 2
+                                option(value=1) 1
+                            input#postB(type='submit' value='post')
+                        each review in movie.reviews
+                            div.movieReview 
+                                div.revRating #{review.rating}/10
+                                div.revBrief #{review.briefSummary}
+                                a.revUser(href="/users/"+review.userID._id) #{review.userID.username}
+                                div.revContent #{review.content}
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src="../movie.js")
+

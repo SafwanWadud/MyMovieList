@@ -1,0 +1,63 @@
+html
+    head(lang="en")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title MyMovieList
+        link(rel='stylesheet' href='../style.css')
+    body
+        p#logo.siteTitle My Movie List
+        include ../partials/navbar
+        div#page
+            div#mainInfo
+                img#pic(src=user.pic)
+                div#info
+                    div.top
+                        div#profileName #{user.username}
+                        form#profileForm
+                            - if(user.userType)
+                                div
+                                    input#reg.profileType(type='radio' value='Regular' name='usertype') 
+                                    | Regular
+                                div
+                                    input#con.profileType(type='radio' value='Contributor' name='usertype' checked) 
+                                    | Contributor
+                            - else
+                                div
+                                    input#reg.profileType(type='radio' value='Regular' name='usertype' checked) 
+                                    | Regular
+                                div
+                                    input#con.profileType(type='radio' value='Contributor' name='usertype') 
+                                    | Contributor
+
+                    div#bio #{user.bio}
+            div#bottomInfo
+                div#sideInfo
+                    div#peopleFollowing
+                        div.followHeading People you follow
+                        div#peopleList
+                            each person in user.peopleFollowing
+                                a.followTag(href='/people/'+person._id) #{person.name}
+                    div#usersFollowing
+                        div.followHeading Users you follow
+                        div#userList
+                            each otherUser in user.usersFollowing
+                                a.followTag(href='/users/'+otherUser._id) #{otherUser.username}
+                    div#recommend
+                        div#rmHeading You might like
+                        each rMovie in user.recommendations
+                            a.movieRec(href="/movies/"+rMovie._id)
+                                div #{rMovie.title}
+                                img.rmPoster(src=rMovie.poster)
+                div#Reviews.userReviews
+                    div#reviewHeading Movie Reviews
+                        each review in user.reviews
+                            div.userReview 
+                                img.revPoster(src=review.movieID.poster)
+                                div.revInfo
+                                    a.revMovie(href="/movies/"+review.movieID._id) #{review.movieID.title}
+                                    div.revRating #{review.rating}/10
+                                    div.revBrief #{review.briefSummary}
+                                    div.revContent.revUP #{review.content}
+        a#topbutton(href='#logo')
+            div#arrow &uarr;
+        script(src="profile.js")
