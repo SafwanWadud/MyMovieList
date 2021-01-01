@@ -1,5 +1,8 @@
 # MyMovieList
 
+Project Report: https://docs.google.com/document/d/1PolD71ccaE2T0_zMa2l9ECIsW3LMYCJl0FsZDw-g0O0/edit?usp=sharing
+
+
 ## 1. Database setup
 
   1. Open terminal and navigate to the directory containing all the source code and resources
