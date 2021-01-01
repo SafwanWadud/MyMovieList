@@ -10,7 +10,7 @@
 
   1. Open another terminal window and navigate to the directory containing all the source code and resources
   1. Initialize the database by entering the command: **node db_init_script.js**
-     Note: this might take a few minutes
+     (Note: this might take a few minutes)
 
 ## 3. Instructions to run server
   1. In the same terminal window as used in step 2, enter the command: **node server_db.js**
