@@ -4,7 +4,7 @@
 
   1. Open terminal and navigate to the directory containing all the source code and resources
   1. If a folder named “database” is not there, create one
-  1. Start up the mongo daemon by entering the command: **mongod --dbpath=”/path-to-database-folder-from-step-1.1.2”**
+  1. Start up the mongo daemon by entering the command: **mongod --dbpath=”/_path-to-database-folder-from-step-1.2_”**
 
 ## 1. Database initialization
 
