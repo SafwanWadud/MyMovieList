@@ -14,4 +14,4 @@
 
 ## 3. Instructions to run server
   3.1 In the same terminal window as used in step 1.2, enter the command: **node server_db.js**
-  3.2 Incase of server crash: repeat steps 2.2 - 3.1
+  3.2 Incase of server crash: repeat steps 2.2 - 3.1 
